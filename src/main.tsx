@@ -8,7 +8,7 @@ declare global { interface Window { Telegram: any } }
 const tg = (window as any)?.Telegram?.WebApp
 if (tg) {
   tg.ready()
-  tg.expand()                   // растягиваем на всю высоту
+  tg.expand()
   tg.enableClosingConfirmation()
 }
 
