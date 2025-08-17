@@ -1,21 +1,26 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function App() {
-  const inTelegram = useMemo(() => Boolean((window as any)?.Telegram?.WebApp), [])
+  const [inTelegram, setInTelegram] = useState(false)
+
+  useEffect(() => {
+    if ((window as any)?.Telegram?.WebApp) {
+      setInTelegram(true)
+      const tg = (window as any).Telegram.WebApp
+      tg.ready()
+      tg.expand()
+      tg.enableClosingConfirmation()
+    }
+  }, [])
 
   if (inTelegram) {
-    // Экран Mini App внутри Telegram
+    // Экран Mini App внутри Telegram (без лишних ссылок)
     return (
-      <div className="app" style={{paddingTop: 24}}>
+      <div className="app" style={{ paddingTop: 24 }}>
         <img src="/logo.png" alt="PULMP.FUN" className="logo" />
         <h1>PULMP.FUN</h1>
         <p>Telegram Mini App запущен ✅</p>
-
-        {/* сюда позже добавим: Connect Phantom, Create Token, Buy/Sell */}
-        <div className="card">
-          <h2>Devnet билд</h2>
-          <p>Дальше добавляем подключение Phantom и тестовые действия.</p>
-        </div>
+        {/* тут дальше появятся Connect Phantom / Create Token / Buy-Sell */}
       </div>
     )
   }
